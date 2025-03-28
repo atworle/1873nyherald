@@ -36,12 +36,13 @@ for(i in 1:length(newurl)){
     if( json_stuff$status_code == 200){
         #only pulling json info if successful status code of 200
         results[[i]] <-content(json_stuff, "text")
+        #ensures I don't overlap the api
     } else{
-         Sys.sleep(5)
-         #pause of 5 seconds was tested it works
         results[[i]]<-NULL
         #making bad results NULL
     }
+    sys.sleep(5)
+    #pauses whether or not there is failure to ensure I don't overload api
 }
 results <- Filter(Negate(is.null), results)
 #this removes null results from the list I made so the json data can be organized
